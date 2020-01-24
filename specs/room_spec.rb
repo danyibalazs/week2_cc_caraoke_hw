@@ -25,4 +25,23 @@ class RoomTest < MiniTest::Test
   def test_get_playlist()
     assert_equal([@song1], @room1.get_playlist())
   end
+
+  def test_check_guest_in()
+    @room1.check_guest_in(@guest2)
+    assert_equal(2, @room1.get_guests().length)
+  end
+
+  def test_check_guest_out()
+    @room1.check_guest_out(@guest1)
+    assert_equal(0, @room1.get_guests().length)
+  end
+
+  def test_add_song()
+    @room1.add_song(@song2)
+    assert_equal(2, @room1.get_playlist().length)
+  end
+  def test_delete_song()
+    @room1.delete_song(@song1)
+    assert_equal(0, @room1.get_playlist().length)
+  end
 end
