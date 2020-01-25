@@ -5,6 +5,7 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 require_relative("../room")
 require_relative("../guest")
 require_relative("../song")
+require_relative("../bar")
 
 class RoomTest < MiniTest::Test
   def setup
@@ -16,11 +17,13 @@ class RoomTest < MiniTest::Test
     @guest1 = Guest.new("Balazs", 20, "Sapphire")
     @guest2 = Guest.new("Bob", 50, "Innocence")
     @guest3 = Guest.new("John", 10, "Innocence")
-    @guest4 = Guest.new("Kate", 5, "Innocence")
+    @guest4 = Guest.new("Kate", 15, "Innocence")
     @guest5 = Guest.new("Mark", 100, "Innocence")
 
     @room1 = Room.new(4, [@guest1], [@song1])
     @room2 = Room.new(5, [@guest1, @guest2], [@song1, @song2, @song3])
+
+    @bar = Bar.new(10, [@room1, @room2], 1000)
 
   end
 
@@ -37,16 +40,17 @@ class RoomTest < MiniTest::Test
   end
 
   def test_check_guest_in()
-    @room1.check_guest_in(@guest2)
+    @room1.check_guest_in(@guest2, @bar)
     assert_equal(2, @room1.get_guests().length)
+    assert_equal(40, @guest2.get_money)
+    assert_equal(1010, @bar.get_till)
   end
 
   def test_full_room()
-    @room1.check_guest_in(@guest2)
-    @room1.check_guest_in(@guest3)
-    @room1.check_guest_in(@guest4)
-    @room1.check_guest_in(@guest5)
-    assert_equal(4, @room1.get_guests().length)
+    @room1.check_guest_in(@guest2, @bar)
+    @room1.check_guest_in(@guest3, @bar)
+    @room1.check_guest_in(@guest4, @bar)
+    assert_equal("Sorry, no more space in this room!", @room1.check_guest_in(@guest5, @bar))
   end
 
   def test_check_guest_out()

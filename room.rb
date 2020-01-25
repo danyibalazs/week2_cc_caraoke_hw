@@ -14,9 +14,13 @@ class Room
     return @playlist
   end
 
-  def check_guest_in(guest)
-    if @guests.length < @room_space
-    @guests.push(guest)
+  def check_guest_in(guest, bar)
+    if @guests.length < @room_space && guest.get_money >= bar.fee
+      @guests.push(guest)
+      guest.pay_fee(bar)
+      bar.take_fee()
+    else
+      return "Sorry, no more space in this room!"
     end
   end
 

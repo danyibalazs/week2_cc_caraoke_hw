@@ -11,9 +11,7 @@ class Guest
   end
 
   def pay_fee(bar)
-    if @money >= bar.fee()
-      @money -= bar.fee()
-    end
+    @money -= bar.fee()
   end
 
   def fav_song_in_playlist(room)

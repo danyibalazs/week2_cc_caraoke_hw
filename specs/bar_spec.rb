@@ -13,11 +13,11 @@ class BarTest < MiniTest::Test
     @song1 = Song.new("Alcest", "Sapphire", "metal")
     @song2 = Song.new("Nero", "Innocence", "electronic")
 
-    @guest1 = Guest.new("Balazs", 20)
-    @guest2 = Guest.new("Bob", 50)
-    @guest3 = Guest.new("John", 10)
-    @guest4 = Guest.new("Kate", 5)
-    @guest5 = Guest.new("Mark", 100)
+    @guest1 = Guest.new("Balazs", 20, "Sapphire")
+    @guest2 = Guest.new("Bob", 50, "Innocence")
+    @guest3 = Guest.new("John", 10, "Innocence")
+    @guest4 = Guest.new("Kate", 5, "Innocence")
+    @guest5 = Guest.new("Mark", 100, "Innocence")
 
     @room1 = Room.new(4, [@guest1], [@song1])
     @room2 = Room.new(6, [], [])
