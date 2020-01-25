@@ -11,14 +11,17 @@ class RoomTest < MiniTest::Test
 
     @song1 = Song.new("Alcest", "Sapphire", "metal")
     @song2 = Song.new("Nero", "Innocence", "electronic")
+    @song3 = Song.new("Alcest", "Protection", "metal")
 
-    @guest1 = Guest.new("Balazs", 20)
-    @guest2 = Guest.new("Bob", 50)
-    @guest3 = Guest.new("John", 10)
-    @guest4 = Guest.new("Kate", 5)
-    @guest5 = Guest.new("Mark", 100)
+    @guest1 = Guest.new("Balazs", 20, "Sapphire")
+    @guest2 = Guest.new("Bob", 50, "Innocence")
+    @guest3 = Guest.new("John", 10, "Innocence")
+    @guest4 = Guest.new("Kate", 5, "Innocence")
+    @guest5 = Guest.new("Mark", 100, "Innocence")
 
     @room1 = Room.new(4, [@guest1], [@song1])
+    @room2 = Room.new(5, [@guest1, @guest2], [@song1, @song2, @song3])
+
   end
 
   def test_get_guests()
@@ -55,8 +58,29 @@ class RoomTest < MiniTest::Test
     @room1.add_song(@song2)
     assert_equal(2, @room1.get_playlist().length)
   end
+
   def test_delete_song()
     @room1.delete_song(@song1)
     assert_equal(0, @room1.get_playlist().length)
+  end
+
+  def test_favourite_song__true()
+    assert_equal("Whoo!", @guest1.fav_song_in_playlist(@room1))
+  end
+
+  def test_favourite_song__false()
+    assert_equal("Oh!", @guest2.fav_song_in_playlist(@room1))
+  end
+
+  def test_search_song_by_artist()
+    assert_equal([@song1, @song3], @room2.search_song_by_artist("Alcest"))
+  end
+
+  def test_search_song_by_title()
+    assert_equal([@song1], @room2.search_song_by_title("Sapphire"))
+  end
+
+  def test_search_song_by_genre()
+    assert_equal([@song1, @song3], @room2.search_song_by_genre("metal"))
   end
 end

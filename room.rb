@@ -31,4 +31,19 @@ class Room
   def delete_song(song)
     @playlist.delete(song)
   end
+
+  def search_song_by_artist(artist)
+    song_list = @playlist.find_all { |song| song.artist == artist}
+    return song_list
+  end
+
+  def search_song_by_title(title)
+    song_list = @playlist.find_all { |song| song.title == title}
+    return song_list
+  end
+
+  def search_song_by_genre(genre)
+    song_list = @playlist.find_all { |song| song.genre == genre}
+    return song_list
+  end
 end

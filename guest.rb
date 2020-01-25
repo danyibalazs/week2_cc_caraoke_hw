@@ -1,8 +1,9 @@
 class Guest
-  attr_reader :name
-  def initialize(name, money)
+  attr_reader :name, :fav_song
+  def initialize(name, money, fav_song)
     @name = name
     @money = money
+    @fav_song = fav_song
   end
 
   def get_money()
@@ -12,6 +13,15 @@ class Guest
   def pay_fee(bar)
     if @money >= bar.fee()
       @money -= bar.fee()
+    end
+  end
+
+  def fav_song_in_playlist(room)
+    song_list = room.get_playlist.map { |song| song.title}
+    if song_list.include?(@fav_song)
+      return "Whoo!"
+    else
+      return "Oh!"
     end
   end
 end
