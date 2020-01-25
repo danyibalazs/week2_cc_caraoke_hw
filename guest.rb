@@ -4,4 +4,8 @@ class Guest
     @name = name
     @money = money
   end
+
+  def get_money()
+    return @money
+  end
 end
