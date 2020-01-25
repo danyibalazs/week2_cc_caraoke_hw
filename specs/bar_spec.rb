@@ -24,5 +24,18 @@ class BarTest < MiniTest::Test
 
     @bar = Bar.new(10, [@room1, @room2], 1000)
   end
-  
+
+  def test_get_till()
+    assert_equal(1000, @bar.get_till())
+  end
+
+  def test_take_fee()
+    @bar.take_fee()
+    assert_equal(1010, @bar.get_till())
+  end
+
+  def test_pay_fee()
+    @guest1.pay_fee(@bar)
+    assert_equal(10, @guest1.get_money())
+  end
 end

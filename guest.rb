@@ -8,4 +8,10 @@ class Guest
   def get_money()
     return @money
   end
+
+  def pay_fee(bar)
+    if @money >= bar.fee()
+      @money -= bar.fee()
+    end
+  end
 end

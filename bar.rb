@@ -6,7 +6,11 @@ class Bar
     @till = till
   end
 
-  def get_till
+  def get_till()
     return @till
+  end
+
+  def take_fee()
+    @till += @fee
   end
 end
